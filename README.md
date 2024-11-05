@@ -1,8 +1,5 @@
-
-
 [![Contributor Covenant](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-brightgreen.svg)](CODE_OF_CONDUCT.md)
 [![codecov](https://codecov.io/gh/sci-ndp/pop-py/branch/main/graph/badge.svg?token=444f80b2-8310-4768-9b28-2368fa5f3ec0)](https://codecov.io/gh/sci-ndp/pop-py)
-
 
 # Point Of Presence Python Client Library
 
@@ -69,8 +66,6 @@ Contributions are welcome! Please follow these steps:
 3. **Make your changes** and **commit** (`git commit -m 'Add new feature'`)
 4. **Push** to the branch (`git push origin feature/new-feature`)
 5. **Open a Pull Reques**
-
-Ensure your contributions follow the [contribution guidelines](CONTRIBUTING.md) if you have one.
 
 ## License
 
