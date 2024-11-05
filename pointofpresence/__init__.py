@@ -5,4 +5,5 @@ from .delete_method import APIClientDelete
 
 class APIClient(APIClientGet, APIClientPost, APIClientDelete):
     """Unified API Client with GET, POST, and DELETE methods."""
+
     pass

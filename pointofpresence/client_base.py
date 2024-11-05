@@ -28,8 +28,8 @@ class APIClientBase:
         """
         url = f"{self.base_url}/token"
         response = self.session.post(
-            url, data={'username': username, 'password': password}
+            url, data={"username": username, "password": password}
         )
         response.raise_for_status()
-        self.token = response.json().get('token')
-        self.session.headers.update({'Authorization': f"Bearer {self.token}"})
+        self.token = response.json().get("token")
+        self.session.headers.update({"Authorization": f"Bearer {self.token}"})
