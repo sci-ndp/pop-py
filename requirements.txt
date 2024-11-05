@@ -1,2 +1,5 @@
 requests
 pytest
+coverage
+codecov
+flake8
