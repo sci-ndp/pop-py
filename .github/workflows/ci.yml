@@ -39,11 +39,11 @@ jobs:
         coverage report --fail-under=80
         coverage xml
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} # Securely set in GitHub secrets
-        files: coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: true
+    # - name: Upload coverage to Codecov
+    #   uses: codecov/codecov-action@v3
+    #   with:
+    #     token: ${{ secrets.CODECOV_TOKEN }} # Securely set in GitHub secrets
+    #     files: coverage.xml
+    #     flags: unittests
+    #     name: codecov-umbrella
+    #     fail_ci_if_error: true
