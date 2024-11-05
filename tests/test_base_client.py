@@ -14,11 +14,13 @@ def client_no_auth():
 
 @patch("pointofpresence.client_base.requests.Session.post")
 def test_init_with_auth(mock_post):
-    """Test initialization with username and password, ensuring get_token
-    is called."""
-    # Configure the mock for a successful response
+    """
+    Test initialization with username and password, ensuring get_token
+    is called.
+    """
+    # Configure the mock for a successful response with access_token
     mock_response = MagicMock()
-    mock_response.json.return_value = {"token": "fake-token"}
+    mock_response.json.return_value = {"access_token": "fake-access-token"}
     mock_response.raise_for_status = MagicMock()
     mock_post.return_value = mock_response
 
@@ -28,10 +30,10 @@ def test_init_with_auth(mock_post):
     )
 
     # Assertions
-    assert client_with_auth.token == "fake-token"
+    assert client_with_auth.token == "fake-access-token"
     assert (
         client_with_auth.session.headers["Authorization"]
-        == "Bearer fake-token"
+        == "Bearer fake-access-token"
     )
     mock_post.assert_called_once_with(
         "https://api.example.com/token",
@@ -49,9 +51,9 @@ def test_init_no_auth(client_no_auth):
 @patch("pointofpresence.client_base.requests.Session.post")
 def test_get_token_success(mock_post):
     """Test the get_token method with successful authentication."""
-    # Configure the mock for a successful response
+    # Configure the mock for a successful response with access_token
     mock_response = MagicMock()
-    mock_response.json.return_value = {"token": "success-token"}
+    mock_response.json.return_value = {"access_token": "success-access-token"}
     mock_response.raise_for_status = MagicMock()
     mock_post.return_value = mock_response
 
@@ -60,8 +62,11 @@ def test_get_token_success(mock_post):
     client.get_token("user", "pass")
 
     # Assertions
-    assert client.token == "success-token"
-    assert client.session.headers["Authorization"] == "Bearer success-token"
+    assert client.token == "success-access-token"
+    assert (
+        client.session.headers["Authorization"]
+        == "Bearer success-access-token"
+    )
     mock_post.assert_called_once_with(
         "https://api.example.com/token",
         data={"username": "user", "password": "pass"},
@@ -89,4 +94,33 @@ def test_get_token_failure(mock_post):
     mock_post.assert_called_once_with(
         "https://api.example.com/token",
         data={"username": "user", "password": "wrongpass"},
+    )
+
+
+@patch("pointofpresence.client_base.requests.Session.post")
+def test_get_token_no_access_token(mock_post):
+    """
+    Test the get_token method when access_token is missing in the response.
+    """
+    # Configure the mock for a successful response without access_token
+    mock_response = MagicMock()
+    mock_response.json.return_value = {"token": "missing-access-token"}
+    mock_response.raise_for_status = MagicMock()
+    mock_post.return_value = mock_response
+
+    client = APIClientBase(base_url="https://api.example.com")
+
+    with pytest.raises(ValueError) as exc_info:
+        client.get_token("user", "pass")
+
+    # Assertions
+    assert (
+        str(exc_info.value)
+        == "Authentication failed: No access token received."
+    )
+    assert client.token is None
+    assert "Authorization" not in client.session.headers
+    mock_post.assert_called_once_with(
+        "https://api.example.com/token",
+        data={"username": "user", "password": "pass"},
     )
