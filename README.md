@@ -1,7 +1,6 @@
 
 
-<pre class="!overflow-visible"><div class="contain-inline-size rounded-md border-[0.5px] border-token-border-medium relative bg-token-sidebar-surface-primary dark:bg-gray-950"><div class="overflow-y-auto p-4" dir="ltr"><code class="!whitespace-pre hljs language-markdown">[![Contributor Covenant](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-brightgreen.svg)](CODE_OF_CONDUCT.md)
-</code></div></div></pre>
+[![Contributor Covenant](https://img.shields.io/badge/code%20of%20conduct-Contributor%20Covenant-brightgreen.svg)](CODE_OF_CONDUCT.md)
 
 # Point Of Presence Python Client Library
 
@@ -11,7 +10,6 @@ A Python client library for interacting with a specific POP API. This library pr
 
 - [Installation](#installation)
 - [Running Tests](#running-tests)
-- [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -60,35 +58,6 @@ To run the tests, navigate to the project root and execute:
 pytest
 ```
 
-## Project Structure
-
-> pop-py
-> ├── pointofpresence/
-> │   ├── init.py
-> │   ├── base_client.py
-> │   ├── get_method.py
-> │   ├── post_method.py
-> │   └── delete_method.py
-> ├── tests/
-> │   ├── init.py
-> │   ├── test_base_client.py
-> │   ├── test_get_method.py
-> │   ├── test_post_method.py
-> │   └── test_delete_method.py
-> ├── .gitignore
-> ├── LICENSE
-> ├── README.md
-> ├── requirements.txt
-> └── setup.py
-
-* **pointofpresence/** : Contains the source code of the library.
-* **tests/** : Contains the test files for each module.
-* **setup.py** : Configuration script for installing the library.
-* **requirements.txt** : List of dependencies for development and testing.
-* **README.md** : Project documentation.
-* **LICENSE** : Project license.
-* **.gitignore** : Specifies which files/directories Git should ignore.
-
 ## Contributing
 
 Contributions are welcome! Please follow these steps:
@@ -103,4 +72,4 @@ Ensure your contributions follow the [contribution guidelines](CONTRIBUTING.md) 
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE]() file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
