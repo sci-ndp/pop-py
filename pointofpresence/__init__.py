@@ -3,6 +3,7 @@ from .post_method import APIClientPost
 from .delete_method import APIClientDelete
 from .register_kafka_method import APIClientKafkaRegister
 from .register_organization_method import APIClientOrganizationRegister
+from .register_s3_method import APIClientS3Register
 
 
 class APIClient(
@@ -11,6 +12,7 @@ class APIClient(
     APIClientDelete,
     APIClientKafkaRegister,
     APIClientOrganizationRegister,
+    APIClientS3Register,
 ):
     """Unified API Client with GET, POST, and DELETE methods."""
 
