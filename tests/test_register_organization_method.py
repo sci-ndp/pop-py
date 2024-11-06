@@ -83,7 +83,7 @@ def test_register_organization_name_exists(mock_check_api, mock_post, client):
     # Verify the error message
     assert (
         str(exc_info.value)
-        == "Error creating organization: Name already exists"
+        == "Error creating organization: Organization name already exists"
     )
     mock_post.assert_called_once_with(
         "https://api.example.com/organization", json=data

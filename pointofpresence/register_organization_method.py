@@ -1,5 +1,3 @@
-# pointofpresence/register_organization_method.py
-
 from .client_base import APIClientBase
 from requests.exceptions import HTTPError
 
@@ -13,7 +11,7 @@ class APIClientOrganizationRegister(APIClientBase):
 
         :param data: Data for the organization.
         :return: Response JSON data with the organization ID and message.
-        :raises ValueError: If the registration fails.
+        :raises ValueError: If the registration fails or name already exists.
         """
         url = f"{self.base_url}/organization"
         try:
@@ -24,9 +22,12 @@ class APIClientOrganizationRegister(APIClientBase):
             # Retrieve the error detail if available, otherwise use the
             # error message
             error_detail = response.json().get("detail", str(e))
-            if "Organization name already exists" in error_detail:
+
+            # Specific error for organization name existence
+            if "Group name already exists in database" in error_detail:
                 raise ValueError(
-                    "Error creating organization: Name already exists"
+                    "Error creating organization: Organization name "
+                    "already exists"
                 )
             else:
                 raise ValueError(
