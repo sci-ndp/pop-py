@@ -19,9 +19,13 @@ class APIClientKafkaRegister(APIClientBase):
             response.raise_for_status()
             return response.json()
         except HTTPError as e:
-            if response.status_code == 401:
+            error_detail = response.json().get("detail", str(e))
+            if "Organization does not exist" in error_detail:
                 raise ValueError(
-                    "Unauthorized: You do not have permission to "
-                    "perform this operation. Please check your credentials."
+                    "Error creating Kafka dataset: Organization "
+                    "(owner_org) does not exist"
                 )
-            raise ValueError(f"Error creating Kafka dataset: {str(e)}")
+            else:
+                raise ValueError(
+                    f"Error creating Kafka dataset: {error_detail}"
+                )
