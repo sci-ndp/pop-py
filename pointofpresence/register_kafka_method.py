@@ -1,5 +1,3 @@
-# pointofpresence/register_kafka_method.py
-
 from .client_base import APIClientBase
 from requests.exceptions import HTTPError
 
@@ -21,4 +19,9 @@ class APIClientKafkaRegister(APIClientBase):
             response.raise_for_status()
             return response.json()
         except HTTPError as e:
+            if response.status_code == 401:
+                raise ValueError(
+                    "Unauthorized: You do not have permission to "
+                    "perform this operation. Please check your credentials."
+                )
             raise ValueError(f"Error creating Kafka dataset: {str(e)}")
