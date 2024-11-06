@@ -4,7 +4,7 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 # -- Project information -----------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 project = "pointofpresence"
 copyright = "2024, Raul Bardaji"
@@ -12,7 +12,7 @@ author = "Raul Bardaji"
 release = "0.0.0"
 
 # -- General configuration ---------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 extensions = ["sphinx.ext.autodoc"]
 
@@ -21,7 +21,7 @@ exclude_patterns = []
 
 
 # -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 html_theme = "alabaster"
 html_static_path = ["_static"]
