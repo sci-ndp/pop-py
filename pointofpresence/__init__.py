@@ -5,6 +5,7 @@ from .register_organization_method import APIClientOrganizationRegister
 from .register_s3_method import APIClientS3Register
 from .register_url_method import APIClientURLRegister
 from .list_organization_method import APIClientOrganizationList
+from .search_method import APIClientSearch
 
 
 class APIClient(
@@ -15,6 +16,7 @@ class APIClient(
     APIClientS3Register,
     APIClientURLRegister,
     APIClientOrganizationList,
+    APIClientSearch,
 ):
     """Unified API Client with GET, POST, and DELETE methods."""
 
