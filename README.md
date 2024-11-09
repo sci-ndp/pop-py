@@ -7,6 +7,7 @@ A Python client library for interacting with a specific POP API. This library pr
 ## Table of Contents
 
 - [Installation](https://github.com/sci-ndp/pop-py/blob/main/README.md#installation)
+- [Tutorial](https://github.com/sci-ndp/pop-py/blob/main/README.md#tutorial)
 - [Running Tests](https://github.com/sci-ndp/pop-py/blob/main/README.md#running-tests)
 - [Contributing](https://github.com/sci-ndp/pop-py/blob/main/README.md#contributing)
 - [License](https://github.com/sci-ndp/pop-py/blob/main/README.md#license)
@@ -47,6 +48,11 @@ Once the package is published on PyPI, you can install it directly using pip:
 ```bash
 pip install pointofpresence
 ```
+
+## Tutorial
+
+For a step-by-step guide on how to use the `pointofpresence` library, check out our comprehensive tutorial: [10 Minutes for a Point of Presence](https://github.com/sci-ndp/pop-py/blob/main/docs/point_of_presence_tutorial.ipynb).
+
 
 ## Running Tests
 
