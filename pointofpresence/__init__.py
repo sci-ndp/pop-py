@@ -6,6 +6,7 @@ from .register_s3_method import APIClientS3Register
 from .register_url_method import APIClientURLRegister
 from .list_organization_method import APIClientOrganizationList
 from .search_method import APIClientSearch
+from .update_kafka_method import APIClientKafkaUpdate
 
 
 class APIClient(
@@ -17,6 +18,7 @@ class APIClient(
     APIClientURLRegister,
     APIClientOrganizationList,
     APIClientSearch,
+    APIClientKafkaUpdate,
 ):
     """Unified API Client with GET, POST, and DELETE methods."""
 
