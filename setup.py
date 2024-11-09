@@ -31,7 +31,7 @@ with open(os.path.join(here, "README.md"), "r", encoding="utf-8") as fh:
 
 setup(
     name="pointofpresence",
-    version="0.0.0",
+    version="0.1.0",
     author="Raul Bardaji, Saleem Slharir, Andreu Fornos, Philip Davis",
     author_email=(
         "rbardaji@gmail.com, saleem.alharir@utah.edu, andreu.fornos@utah.edu,"
