@@ -8,6 +8,7 @@ from .update_kafka_method import APIClientKafkaUpdate
 from .update_s3_method import APIClientS3Update
 from .update_url_method import APIClientURLUpdate
 from .delete_organization_method import APIClientOrganizationDelete
+from .delete_resource_method import APIClientResourceDelete
 
 
 class APIClient(
@@ -21,6 +22,7 @@ class APIClient(
     APIClientS3Update,
     APIClientURLUpdate,
     APIClientOrganizationDelete,
+    APIClientResourceDelete,
 ):
     """Unified API Client with GET, POST, and DELETE methods."""
 
