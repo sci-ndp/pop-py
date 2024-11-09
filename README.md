@@ -6,10 +6,10 @@ A Python client library for interacting with a specific POP API. This library pr
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Running Tests](#running-tests)
-- [Contributing](#contributing)
-- [License](#license)
+- [Installation](https://github.com/sci-ndp/pop-py/blob/main/README.md#installation)
+- [Running Tests](https://github.com/sci-ndp/pop-py/blob/main/README.md#running-tests)
+- [Contributing](https://github.com/sci-ndp/pop-py/blob/main/README.md#contributing)
+- [License](https://github.com/sci-ndp/pop-py/blob/main/README.md#license)
 
 ## Installation
 
@@ -68,4 +68,4 @@ Contributions are welcome! Please follow these steps:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/sci-ndp/pop-py/blob/main/LICENSE) file for details.
