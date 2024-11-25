@@ -19,11 +19,14 @@ class APIClientSearch(APIClientBase):
         :raises ValueError: If the search fails or validation fails.
         """
         # Ensure terms and keys lengths match, if keys are provided
-        if keys is not None and len(keys) != len(terms):
-            raise ValueError(
-                "The number of terms must match the number of keys, or keys "
-                "must be omitted."
-            )
+        if keys is not None:
+            if len(keys) != len(terms):
+                raise ValueError(
+                    "The number of terms must match the number of keys, "
+                    "or keys must be omitted."
+                )
+            # Convert Python None to JSON null for the API
+            keys = [key if key is not None else "null" for key in keys]
 
         url = f"{self.base_url}/search"
         # Prepare the payload including optional keys
