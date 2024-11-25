@@ -1,29 +1,41 @@
-# pointofpresence/search_method.py
-
 from .client_base import APIClientBase
 from requests.exceptions import HTTPError
 
 
 class APIClientSearch(APIClientBase):
-    """Extension of APIClientBase with search functionality for datasets."""
+    """
+    Extension of APIClientBase with search functionality for datasets.
+    """
 
-    def search_datasets(self, terms, server="local"):
+    def search_datasets(self, terms, keys=None, server="local"):
         """
-        Search datasets by a list of terms.
+        Search datasets by a list of terms with optional key specifications.
 
         :param terms: A list of terms to search for in the datasets.
+        :param keys: An optional list specifying the keys for each term.
+                     Use `None` for a global search for the corresponding term.
         :param server: Specify the server to search on: 'local' or 'global'.
         :return: List of matching datasets.
-        :raises ValueError: If the search fails.
+        :raises ValueError: If the search fails or validation fails.
         """
+        # Ensure terms and keys lengths match, if keys are provided
+        if keys is not None and len(keys) != len(terms):
+            raise ValueError(
+                "The number of terms must match the number of keys, or keys "
+                "must be omitted."
+            )
+
         url = f"{self.base_url}/search"
-        params = {"terms": terms, "server": server}
+        # Prepare the payload including optional keys
+        payload = {"terms": terms, "server": server}
+        if keys:
+            payload["keys"] = keys
 
         try:
-            response = self.session.get(url, params=params)
+            response = self.session.get(url, params=payload)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:
-            # Extract error details if available
+            # Extract detailed error message from the API response if available
             error_detail = response.json().get("detail", str(e))
             raise ValueError(f"Error searching for datasets: {error_detail}")
