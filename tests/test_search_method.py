@@ -118,3 +118,47 @@ def test_search_datasets_global_server(client):
             "https://api.example.com/search",
             params={"terms": ["global", "dataset"], "server": "global"},
         )
+
+
+def test_search_datasets_with_keys(client):
+    """Test the search_datasets method with keys specified."""
+    with patch("pointofpresence.client_base.requests.Session.get") as mock_get:
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [
+            {
+                "id": "12345678-abcd-efgh-ijkl-1234567890ab",
+                "name": "example_dataset_name",
+                "title": "Example Dataset Title",
+            }
+        ]
+        mock_get.return_value = mock_response
+
+        # Call the search_datasets method with keys
+        response = client.search_datasets(
+            terms=["example", "dataset"],
+            keys=["description", "extras.key1"],
+        )
+
+        # Assertions
+        assert response == mock_response.json()
+        mock_get.assert_called_once_with(
+            "https://api.example.com/search",
+            params={
+                "terms": ["example", "dataset"],
+                "keys": ["description", "extras.key1"],
+                "server": "local",
+            },
+        )
+
+
+def test_search_datasets_keys_mismatch(client):
+    """Test the search_datasets method with a mismatch in terms and keys."""
+    with pytest.raises(ValueError) as exc_info:
+        client.search_datasets(
+            terms=["example", "dataset"], keys=["description"]
+        )
+
+    assert "The number of terms must match the number of keys" in str(
+        exc_info.value
+    )
