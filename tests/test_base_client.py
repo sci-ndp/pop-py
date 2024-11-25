@@ -46,6 +46,36 @@ def test_init_no_auth(client_no_auth):
     assert "Authorization" not in client_no_auth.session.headers
 
 
+def test_base_url_missing_protocol():
+    """
+    Test initialization when base_url is missing the protocol.
+    Ensure 'http://' is prepended.
+    """
+    with patch.object(APIClientBase, "_check_api_availability"):
+        client = APIClientBase(base_url="api.example.com")
+        assert client.base_url == "http://api.example.com"
+
+
+def test_base_url_with_http_protocol():
+    """
+    Test initialization when base_url already includes 'http://'.
+    Ensure the base_url remains unchanged.
+    """
+    with patch.object(APIClientBase, "_check_api_availability"):
+        client = APIClientBase(base_url="http://api.example.com")
+        assert client.base_url == "http://api.example.com"
+
+
+def test_base_url_with_https_protocol():
+    """
+    Test initialization when base_url already includes 'https://'.
+    Ensure the base_url remains unchanged.
+    """
+    with patch.object(APIClientBase, "_check_api_availability"):
+        client = APIClientBase(base_url="https://api.example.com")
+        assert client.base_url == "https://api.example.com"
+
+
 @patch("pointofpresence.client_base.requests.Session.post")
 @patch.object(APIClientBase, "_check_api_availability")
 def test_get_token_success(mock_check_api, mock_post):
@@ -86,7 +116,6 @@ def test_get_token_failure(mock_check_api, mock_post):
     with pytest.raises(ValueError) as exc_info:
         client.get_token("user", "wrongpass")
 
-    # Adjusted assertion to match the actual error message
     assert "HTTP error occurred: Authentication failed" in str(exc_info.value)
     mock_post.assert_called_once_with(
         "https://api.example.com/token",

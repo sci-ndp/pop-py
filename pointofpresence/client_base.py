@@ -1,6 +1,6 @@
 # pointofpresence/client_base.py
-
 import requests
+from urllib.parse import urlparse
 
 
 class APIClientBase:
@@ -16,7 +16,8 @@ class APIClientBase:
         :param username: Username for authentication.
         :param password: Password for authentication.
         """
-        self.base_url = base_url.rstrip("/")
+        # Ensure the base URL has a valid protocol
+        self.base_url = self._ensure_protocol(base_url).rstrip("/")
         self.session = requests.Session()
         self.token = None
 
@@ -31,6 +32,20 @@ class APIClientBase:
             self._check_api_availability()
         if username and password:
             self.get_token(username, password)
+
+    @staticmethod
+    def _ensure_protocol(url: str) -> str:
+        """
+        Ensure the URL contains a valid protocol. If missing, prepend
+        'http://'.
+
+        :param url: The URL to validate.
+        :return: The URL with a protocol.
+        """
+        parsed_url = urlparse(url)
+        if not parsed_url.scheme:
+            return f"http://{url}"
+        return url
 
     def _check_api_availability(self):
         """
