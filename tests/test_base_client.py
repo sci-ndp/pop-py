@@ -148,3 +148,39 @@ def test_get_token_no_access_token(mock_check_api, mock_post):
         "https://api.example.com/token",
         data={"username": "user", "password": "pass"},
     )
+
+
+def test_init_with_token():
+    """
+    Test initialization with a token provided.
+    Ensure the session is configured with the token.
+    """
+    client_with_token = APIClientBase(
+        base_url="https://api.example.com", token="test-token"
+    )
+
+    assert client_with_token.base_url == "https://api.example.com"
+    assert client_with_token.token == "test-token"
+    assert (
+        client_with_token.session.headers["Authorization"]
+        == "Bearer test-token"
+    )
+
+
+def test_init_token_conflict():
+    """
+    Test initialization with both token and username/password.
+    Ensure it raises a ValueError.
+    """
+    with pytest.raises(ValueError) as exc_info:
+        APIClientBase(
+            base_url="https://api.example.com",
+            token="test-token",
+            username="user",
+            password="pass",
+        )
+
+    assert (
+        str(exc_info.value)
+        == "Provide either a token or username/password, not both."
+    )
