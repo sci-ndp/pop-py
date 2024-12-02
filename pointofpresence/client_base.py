@@ -7,31 +7,44 @@ class APIClientBase:
     """Base class for the API client."""
 
     def __init__(
-        self, base_url: str, username: str = None, password: str = None
+        self,
+        base_url: str,
+        token: str = None,
+        username: str = None,
+        password: str = None,
     ):
         """
         Initialize the API client.
 
         :param base_url: Base URL of the API.
+        :param token: Access token for authentication.
         :param username: Username for authentication.
         :param password: Password for authentication.
         """
-        # Ensure the base URL has a valid protocol
         self.base_url = self._ensure_protocol(base_url).rstrip("/")
         self.session = requests.Session()
+
+        # Initialize token to None by default
         self.token = None
 
-        # Validate that both username and password are provided together
-        # or not at all
-        if (username and not password) or (password and not username):
+        # Validate input combinations
+        if token and (username or password):
             raise ValueError(
-                "Both username and password must be provided together."
+                "Provide either a token or username/password, not both."
             )
 
-        if not username and not password:
-            self._check_api_availability()
-        if username and password:
+        # Initialize with token if provided
+        if token:
+            self.token = token
+            self.session.headers.update(
+                {"Authorization": f"Bearer {self.token}"}
+            )
+        # Fallback to username/password authentication
+        elif username and password:
             self.get_token(username, password)
+        # Check API availability if no authentication details are provided
+        else:
+            self._check_api_availability()
 
     @staticmethod
     def _ensure_protocol(url: str) -> str:
