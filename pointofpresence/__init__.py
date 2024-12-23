@@ -1,3 +1,5 @@
+# pointofpresence/__init__.py
+
 from .register_kafka_method import APIClientKafkaRegister
 from .register_organization_method import APIClientOrganizationRegister
 from .register_s3_method import APIClientS3Register
@@ -9,6 +11,7 @@ from .update_s3_method import APIClientS3Update
 from .update_url_method import APIClientURLUpdate
 from .delete_organization_method import APIClientOrganizationDelete
 from .delete_resource_method import APIClientResourceDelete
+from .get_kafka_details_method import APIClientKafkaDetails
 
 
 class APIClient(
@@ -23,6 +26,7 @@ class APIClient(
     APIClientURLUpdate,
     APIClientOrganizationDelete,
     APIClientResourceDelete,
+    APIClientKafkaDetails,
 ):
     """Unified API Client with GET, POST, and DELETE methods."""
 
