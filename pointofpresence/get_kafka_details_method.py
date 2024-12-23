@@ -1,3 +1,5 @@
+# pointofpresence/get_kafka_details_method.py
+
 import requests
 from pointofpresence.client_base import APIClientBase
 
@@ -33,5 +35,9 @@ class APIClientKafkaDetails(APIClientBase):
             ) from http_err
         except requests.exceptions.RequestException as req_err:
             raise ValueError(
-                f"An error occurred while fetching Kafka details: {req_err}"
+                "An error occurred while fetching Kafka " f"details: {req_err}"
             ) from req_err
+        except ValueError as json_err:
+            raise ValueError(
+                "An error occurred while parsing Kafka " f"details: {json_err}"
+            ) from json_err
