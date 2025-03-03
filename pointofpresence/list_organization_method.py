@@ -1,4 +1,4 @@
-# pointfopresenve/list_organization_method.py
+# pointofpresence/list_organization_method.py
 
 from .client_base import APIClientBase
 from requests.exceptions import HTTPError
@@ -7,16 +7,21 @@ from requests.exceptions import HTTPError
 class APIClientOrganizationList(APIClientBase):
     """Extension of APIClientBase with method to list organizations."""
 
-    def list_organizations(self, name=None):
+    def list_organizations(self, name=None, server="global"):
         """
-        List all organizations, with optional name filtering.
+        List all organizations, with optional name filtering and server
+        selection.
 
         :param name: Optional string to filter organizations by name.
+        :param server: The CKAN server to query ('local', 'global',
+        'pre_ckan').
         :return: List of organization names.
         :raises ValueError: If the retrieval fails.
         """
         url = f"{self.base_url}/organization"
-        params = {"name": name} if name else None
+        params = {"server": server}
+        if name:
+            params["name"] = name
 
         try:
             response = self.session.get(url, params=params)
