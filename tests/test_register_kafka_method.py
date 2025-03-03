@@ -45,7 +45,8 @@ def test_register_kafka_topic_success(mock_check_api, mock_post, client):
     # Assertions to verify correct behavior
     assert response == {"id": "12345678-abcd-efgh-ijkl-1234567890ab"}
     mock_post.assert_called_once_with(
-        "https://api.example.com/kafka", json=data
+        "https://api.example.com/kafka", json=data,
+        params={"server": "local"}
     )
 
 
@@ -83,5 +84,6 @@ def test_register_kafka_topic_failure(mock_check_api, mock_post, client):
     # Verify error message
     assert "Error creating Kafka dataset" in str(exc_info.value)
     mock_post.assert_called_once_with(
-        "https://api.example.com/kafka", json=data
+        "https://api.example.com/kafka", json=data,
+        params={"server": "local"}
     )

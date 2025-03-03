@@ -7,17 +7,20 @@ from requests.exceptions import HTTPError
 class APIClientKafkaRegister(APIClientBase):
     """Extension of APIClientBase with Kafka topic registration method."""
 
-    def register_kafka_topic(self, data):
+    def register_kafka_topic(self, data, server="local"):
         """
         Register a new Kafka topic by making a POST request.
 
         :param data: Data for the Kafka topic.
+        :param server: Specify 'local' or 'pre_ckan'. Defaults to 'local'.
         :return: Response JSON data with the topic ID.
         :raises ValueError: If the registration fails.
         """
         url = f"{self.base_url}/kafka"
+        params = {"server": server}  # Send server as a query parameter
+
         try:
-            response = self.session.post(url, json=data)
+            response = self.session.post(url, json=data, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:
@@ -29,5 +32,4 @@ class APIClientKafkaRegister(APIClientBase):
                 )
             else:
                 raise ValueError(
-                    f"Error creating Kafka dataset: {error_detail}"
-                )
+                    f"Error creating Kafka dataset: {error_detail}")
