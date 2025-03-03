@@ -7,14 +7,15 @@ class APIClientSearch(APIClientBase):
     Extension of APIClientBase with search functionality for datasets.
     """
 
-    def search_datasets(self, terms, keys=None, server="local"):
+    def search_datasets(self, terms, keys=None, server="global"):
         """
         Search datasets by a list of terms with optional key specifications.
 
         :param terms: A list of terms to search for in the datasets.
         :param keys: An optional list specifying the keys for each term.
                      Use `None` for a global search for the corresponding term.
-        :param server: Specify the server to search on: 'local' or 'global'.
+        :param server: Specify the server to search on: 'local', 'global' or
+        'pre-ckan'.
         :return: List of matching datasets.
         :raises ValueError: If the search fails or validation fails.
         """
