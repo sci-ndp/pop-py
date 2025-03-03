@@ -14,7 +14,8 @@ class APIClientSearch(APIClientBase):
         :param terms: A list of terms to search for in the datasets.
         :param keys: An optional list specifying the keys for each term.
                      Use `None` for a global search for the corresponding term.
-        :param server: Specify the server to search on: 'local', 'global' or 'pre-ckan'.
+        :param server: Specify the server to search on: 'local', 'global' or
+        'pre-ckan'.
         :return: List of matching datasets.
         :raises ValueError: If the search fails or validation fails.
         """

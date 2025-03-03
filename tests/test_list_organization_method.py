@@ -55,7 +55,8 @@ def test_list_organizations_with_filter(mock_check_api, mock_get, client):
     # Assertions to verify correct behavior
     assert response == ["filtered_org"]
     mock_get.assert_called_once_with(
-        "https://api.example.com/organization", params={'server': 'global', "name": "filtered"}
+        "https://api.example.com/organization",
+        params={'server': 'global', "name": "filtered"}
     )
 
 

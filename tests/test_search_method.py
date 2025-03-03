@@ -46,7 +46,7 @@ def test_search_datasets_success(client):
         assert response == mock_response.json()
         mock_get.assert_called_once_with(
             "https://api.example.com/search",
-            params={"terms": ["example", "dataset"], "server": "local"},
+            params={"terms": ["example", "dataset"], "server": "global"},
         )
 
 
@@ -65,7 +65,7 @@ def test_search_datasets_no_results(client):
         assert response == []
         mock_get.assert_called_once_with(
             "https://api.example.com/search",
-            params={"terms": ["nonexistent"], "server": "local"},
+            params={"terms": ["nonexistent"], "server": "global"},
         )
 
 
@@ -87,7 +87,7 @@ def test_search_datasets_http_error(client):
         )
         mock_get.assert_called_once_with(
             "https://api.example.com/search",
-            params={"terms": ["error_term"], "server": "local"},
+            params={"terms": ["error_term"], "server": "global"},
         )
 
 
@@ -147,7 +147,7 @@ def test_search_datasets_with_keys(client):
             params={
                 "terms": ["example", "dataset"],
                 "keys": ["description", "extras.key1"],
-                "server": "local",
+                "server": "global",
             },
         )
 
