@@ -33,7 +33,7 @@ def test_list_organizations_success(mock_check_api, mock_get, client):
     # Assertions to verify correct behavior
     assert response == ["org1", "org2", "org3"]
     mock_get.assert_called_once_with(
-        "https://api.example.com/organization", params=None
+        "https://api.example.com/organization", params={"server": "global"}
     )
 
 
@@ -55,7 +55,7 @@ def test_list_organizations_with_filter(mock_check_api, mock_get, client):
     # Assertions to verify correct behavior
     assert response == ["filtered_org"]
     mock_get.assert_called_once_with(
-        "https://api.example.com/organization", params={"name": "filtered"}
+        "https://api.example.com/organization", params={'server': 'global', "name": "filtered"}
     )
 
 
@@ -78,5 +78,28 @@ def test_list_organizations_http_error(mock_check_api, mock_get, client):
     # Verify error message
     assert "Error listing organizations: Server error" in str(exc_info.value)
     mock_get.assert_called_once_with(
-        "https://api.example.com/organization", params=None
+        "https://api.example.com/organization", params={"server": "global"}
+    )
+
+
+@patch("pointofpresence.client_base.requests.Session.get")
+@patch.object(APIClientOrganizationList, "_check_api_availability")
+def test_list_organizations_with_server(mock_check_api, mock_get, client):
+    """Test list_organizations with a specified server parameter."""
+    mock_check_api.return_value = None
+
+    # Mock the GET response for a successful request
+    mock_response = MagicMock()
+    mock_response.status_code = 200
+    mock_response.json.return_value = ["orgA", "orgB"]
+    mock_get.return_value = mock_response
+
+    # Call the method with server="local"
+    response = client.list_organizations(server="local")
+
+    # Assertions to verify correct behavior
+    assert response == ["orgA", "orgB"]
+    mock_get.assert_called_once_with(
+        "https://api.example.com/organization",
+        params={"server": "local"}
     )
