@@ -5,18 +5,20 @@ from requests.exceptions import HTTPError
 class APIClientS3Register(APIClientBase):
     """Extension of APIClientBase with S3 link registration method."""
 
-    def register_s3_link(self, data):
+    def register_s3_link(self, data, server="local"):
         """
         Register a new S3 link by making a POST request.
 
         :param data: Data for the S3 link.
+        :param server: Specify 'local' or 'pre_ckan'. Defaults to 'local'.
         :return: Response JSON data with the link ID.
         :raises ValueError: If the registration fails or organization
                             does not exist.
         """
         url = f"{self.base_url}/s3"
+        params = {"server": server}
         try:
-            response = self.session.post(url, json=data)
+            response = self.session.post(url, json=data, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:

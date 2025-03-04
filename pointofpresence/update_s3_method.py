@@ -5,18 +5,20 @@ from requests.exceptions import HTTPError
 class APIClientS3Update(APIClientBase):
     """Extension of APIClientBase with S3 resource update method."""
 
-    def update_s3_resource(self, resource_id, data):
+    def update_s3_resource(self, resource_id, data, server="local"):
         """
         Update an existing S3 resource by making a PUT request.
 
         :param resource_id: ID of the resource to update.
         :param data: Data for updating the S3 resource.
+        :param server: Specify 'local' or 'pre_ckan'. Defaults to 'local'.
         :return: Response JSON data indicating success.
         :raises ValueError: If the update fails.
         """
         url = f"{self.base_url}/s3/{resource_id}"
+        params = {"server": server}
         try:
-            response = self.session.put(url, json=data)
+            response = self.session.put(url, json=data, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:

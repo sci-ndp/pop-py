@@ -35,7 +35,8 @@ def test_delete_organization_success(mock_check_api, mock_delete, client):
     # Assertions to verify correct behavior
     assert response == {"message": "Organization deleted successfully"}
     mock_delete.assert_called_once_with(
-        "https://api.example.com/organization/example_org"
+        "https://api.example.com/organization/example_org",
+        params={'server': 'local'}
     )
 
 
@@ -60,7 +61,8 @@ def test_delete_organization_not_found(mock_check_api, mock_delete, client):
     # Verify error message
     assert "Error deleting organization: Not found" in str(exc_info.value)
     mock_delete.assert_called_once_with(
-        "https://api.example.com/organization/nonexistent_org"
+        "https://api.example.com/organization/nonexistent_org",
+        params={'server': 'local'}
     )
 
 
@@ -87,5 +89,6 @@ def test_delete_organization_failure(mock_check_api, mock_delete, client):
         exc_info.value
     )
     mock_delete.assert_called_once_with(
-        "https://api.example.com/organization/example_org"
+        "https://api.example.com/organization/example_org",
+        params={'server': 'local'}
     )

@@ -7,17 +7,19 @@ from requests.exceptions import HTTPError
 class APIClientURLRegister(APIClientBase):
     """Extension of APIClientBase with URL resource registration method."""
 
-    def register_url(self, data):
+    def register_url(self, data, server="local"):
         """
         Register a new URL resource by making a POST request.
 
         :param data: Data for the URL resource.
+        :param server: Specify 'local' or 'pre_ckan'. Defaults to 'local'.
         :return: Response JSON data with the resource ID.
         :raises ValueError: If the registration fails.
         """
         url = f"{self.base_url}/url"
+        params = {"server": server}
         try:
-            response = self.session.post(url, json=data)
+            response = self.session.post(url, json=data, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:

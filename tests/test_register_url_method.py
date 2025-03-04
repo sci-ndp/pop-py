@@ -45,7 +45,9 @@ def test_register_url_success(mock_check_api, mock_post, client):
 
     # Assertions to verify correct behavior
     assert response == {"id": "12345678-abcd-efgh-ijkl-1234567890ab"}
-    mock_post.assert_called_once_with("https://api.example.com/url", json=data)
+    mock_post.assert_called_once_with(
+        "https://api.example.com/url", json=data,
+        params={'server': 'local'})
 
 
 @patch("pointofpresence.client_base.requests.Session.post")
@@ -81,7 +83,9 @@ def test_register_url_key_error(mock_check_api, mock_post, client):
 
     # Verify error message
     assert "Reserved key conflict" in str(exc_info.value)
-    mock_post.assert_called_once_with("https://api.example.com/url", json=data)
+    mock_post.assert_called_once_with(
+        "https://api.example.com/url", json=data,
+        params={'server': 'local'})
 
 
 @patch("pointofpresence.client_base.requests.Session.post")
@@ -117,4 +121,6 @@ def test_register_url_value_error(mock_check_api, mock_post, client):
 
     # Verify error message
     assert "Invalid input data" in str(exc_info.value)
-    mock_post.assert_called_once_with("https://api.example.com/url", json=data)
+    mock_post.assert_called_once_with(
+        "https://api.example.com/url", json=data,
+        params={'server': 'local'})

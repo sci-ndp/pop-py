@@ -38,7 +38,8 @@ def test_update_kafka_topic_not_found(mock_check_api, mock_put, client):
     # Verify error message
     assert "Error updating Kafka dataset: Not found" in str(exc_info.value)
     mock_put.assert_called_once_with(
-        "https://api.example.com/kafka/nonexistent-id", json=data
+        "https://api.example.com/kafka/nonexistent-id", json=data,
+        params={'server': 'local'}
     )
 
 
@@ -74,5 +75,5 @@ def test_update_kafka_topic_failure(mock_check_api, mock_put, client):
     )
     mock_put.assert_called_once_with(
         "https://api.example.com/kafka/12345678-abcd-efgh-ijkl-1234567890ab",
-        json=data,
+        json=data, params={'server': 'local'}
     )

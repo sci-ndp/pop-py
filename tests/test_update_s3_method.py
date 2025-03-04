@@ -40,7 +40,7 @@ def test_update_s3_resource_success(mock_check_api, mock_put, client):
     assert response == {"message": "S3 resource updated successfully"}
     mock_put.assert_called_once_with(
         "https://api.example.com/s3/12345678-abcd-efgh-ijkl-1234567890ab",
-        json=data,
+        json=data, params={'server': 'local'}
     )
 
 
@@ -71,7 +71,8 @@ def test_update_s3_resource_not_found(mock_check_api, mock_put, client):
     # Verify error message
     assert "Error updating S3 resource: Not found" in str(exc_info.value)
     mock_put.assert_called_once_with(
-        "https://api.example.com/s3/nonexistent-id", json=data
+        "https://api.example.com/s3/nonexistent-id", json=data,
+        params={'server': 'local'}
     )
 
 
@@ -105,5 +106,5 @@ def test_update_s3_resource_failure(mock_check_api, mock_put, client):
     )
     mock_put.assert_called_once_with(
         "https://api.example.com/s3/12345678-abcd-efgh-ijkl-1234567890ab",
-        json=data,
+        json=data, params={'server': 'local'}
     )

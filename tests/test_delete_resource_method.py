@@ -32,7 +32,7 @@ def test_delete_resource_by_id_success(mock_check_api, mock_delete, client):
     assert response == {"message": "Resource deleted successfully"}
     mock_delete.assert_called_once_with(
         "https://api.example.com/resource",
-        params={"resource_id": "example_id"},
+        params={'server': 'local', "resource_id": "example_id"},
     )
 
 
@@ -58,7 +58,7 @@ def test_delete_resource_by_id_not_found(mock_check_api, mock_delete, client):
     assert "Error deleting resource: Not found" in str(exc_info.value)
     mock_delete.assert_called_once_with(
         "https://api.example.com/resource",
-        params={"resource_id": "nonexistent_id"},
+        params={'server': 'local', "resource_id": "nonexistent_id"},
     )
 
 
@@ -82,7 +82,8 @@ def test_delete_resource_by_name_success(mock_check_api, mock_delete, client):
     # Assertions to verify correct behavior
     assert response == {"message": "Resource deleted successfully"}
     mock_delete.assert_called_once_with(
-        "https://api.example.com/resource/example_resource"
+        "https://api.example.com/resource/example_resource",
+        params={'server': 'local'}
     )
 
 
@@ -109,5 +110,6 @@ def test_delete_resource_by_name_not_found(
     # Verify error message
     assert "Error deleting resource: Not found" in str(exc_info.value)
     mock_delete.assert_called_once_with(
-        "https://api.example.com/resource/nonexistent_resource"
+        "https://api.example.com/resource/nonexistent_resource",
+        params={'server': 'local'}
     )

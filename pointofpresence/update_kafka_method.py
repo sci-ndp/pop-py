@@ -5,18 +5,20 @@ from requests.exceptions import HTTPError
 class APIClientKafkaUpdate(APIClientBase):
     """Extension of APIClientBase with Kafka topic update method."""
 
-    def update_kafka_topic(self, dataset_id, data):
+    def update_kafka_topic(self, dataset_id, data, server="local"):
         """
         Update an existing Kafka topic by making a PUT request.
 
         :param dataset_id: ID of the dataset to update.
         :param data: Data for updating the Kafka topic.
+        :param server: Specify 'local' or 'pre_ckan'. Defaults to 'local'.
         :return: Response JSON data indicating success.
         :raises ValueError: If the update fails.
         """
         url = f"{self.base_url}/kafka/{dataset_id}"
+        params = {"server": server}
         try:
-            response = self.session.put(url, json=data)
+            response = self.session.put(url, json=data, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:

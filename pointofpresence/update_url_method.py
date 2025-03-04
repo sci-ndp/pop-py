@@ -5,18 +5,20 @@ from requests.exceptions import HTTPError
 class APIClientURLUpdate(APIClientBase):
     """Extension of APIClientBase with URL resource update method."""
 
-    def update_url_resource(self, resource_id, data):
+    def update_url_resource(self, resource_id, data, server="local"):
         """
         Update an existing URL resource by making a PUT request.
 
         :param resource_id: ID of the resource to update.
         :param data: Data for updating the URL resource.
+        :param server: Specify 'local' or 'pre_ckan'. Defaults to 'local'.
         :return: Response JSON data indicating success.
         :raises ValueError: If the update fails.
         """
         url = f"{self.base_url}/url/{resource_id}"
+        params = {"server": server}
         try:
-            response = self.session.put(url, json=data)
+            response = self.session.put(url, json=data, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:
