@@ -43,3 +43,33 @@ class APIClientSearch(APIClientBase):
             # Extract detailed error message from the API response if available
             error_detail = response.json().get("detail", str(e))
             raise ValueError(f"Error searching for datasets: {error_detail}")
+
+    def advanced_search(self, search_data: dict) -> list:
+        """
+        Perform an advanced search using the POST /search endpoint.
+
+        :param search_data: A dict matching the 'SearchRequest' model,
+            for example:
+            {
+                "dataset_name": "...",
+                "resource_url": "...",
+                "search_term": "...",
+                "filter_list": [...],
+                "server": "local"
+            }
+        :return: A list of matching datasets.
+        :raises ValueError: If the search or validation fails.
+        """
+        url = f"{self.base_url}/search"
+
+        try:
+            response = self.session.post(url, json=search_data)
+            response.raise_for_status()
+            return response.json()
+        except HTTPError as e:
+            error_detail = ""
+            try:
+                error_detail = response.json().get("detail", str(e))
+            except Exception:
+                error_detail = str(e)
+            raise ValueError(f"Error in advanced search: {error_detail}")
