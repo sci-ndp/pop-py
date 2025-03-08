@@ -5,17 +5,20 @@ from requests.exceptions import HTTPError
 class APIClientOrganizationRegister(APIClientBase):
     """Extension of APIClientBase with organization registration method."""
 
-    def register_organization(self, data):
+    def register_organization(self, data, server="local"):
         """
         Register a new organization by making a POST request.
 
         :param data: Data for the organization.
+        :param server: CKAN instance
+            ("local" or "pre_ckan"). Defaults to "local".
         :return: Response JSON data with the organization ID and message.
         :raises ValueError: If the registration fails or name already exists.
         """
         url = f"{self.base_url}/organization"
+        params = {"server": server}
         try:
-            response = self.session.post(url, json=data)
+            response = self.session.post(url, json=data, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as e:
