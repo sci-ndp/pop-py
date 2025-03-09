@@ -48,7 +48,9 @@ def test_register_organization_success(mock_check_api, mock_post, client):
     assert response["id"] == "305284e6-6338-4e13-b39b-e6efe9f1c45a"
     assert response["message"] == "Organization created successfully"
     mock_post.assert_called_once_with(
-        "https://api.example.com/organization", json=data
+        "https://api.example.com/organization",
+        json=data,
+        params={"server": "local"},
     )
 
 
@@ -86,7 +88,9 @@ def test_register_organization_name_exists(mock_check_api, mock_post, client):
         == "Error creating organization: Organization name already exists"
     )
     mock_post.assert_called_once_with(
-        "https://api.example.com/organization", json=data
+        "https://api.example.com/organization",
+        json=data,
+        params={"server": "local"},
     )
 
 
@@ -122,5 +126,7 @@ def test_register_organization_general_failure(
         exc_info.value
     )
     mock_post.assert_called_once_with(
-        "https://api.example.com/organization", json=data
+        "https://api.example.com/organization",
+        json=data,
+        params={"server": "local"},
     )
