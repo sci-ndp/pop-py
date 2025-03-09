@@ -51,7 +51,7 @@ pip install pointofpresence
 
 ## Tutorial
 
-For a step-by-step guide on how to use the `pointofpresence` library, check out our comprehensive tutorial: [10 Minutes for a Point of Presence](https://github.com/sci-ndp/pop-py/blob/main/docs/point_of_presence_tutorial_0.4.0.ipynb).
+For a step-by-step guide on how to use the `pointofpresence` library, check out our comprehensive tutorial: [10 Minutes for a Point of Presence](https://github.com/sci-ndp/pop-py/blob/main/docs/point_of_presence_tutorial_0.5.2.ipynb).
 
 ## Running Tests
 
