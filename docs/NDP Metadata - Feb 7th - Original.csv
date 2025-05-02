@@ -1,0 +1,74 @@
+DCAT class,DCAT property,Value Name,CKAN fields used in frontend code,Required/Optional,Notes,Stored as,,,CKAN dataset field
+dcat:Dataset,dct:title,Title,title,Required,,text,,,title
+dcat:Dataset,dct:description,Description,notes,Required,,text,,,notes
+dcat:Dataset,dcat:keyword,Keywords,tags,Required,,list,,,tags
+dcat:Dataset,dcat:theme,Themes,extras:theme,Optional,We need to build out a theme ontology,list,See Lists,,custom:theme
+dcat:Dataset,dct:identifier,DOI,extras:doi,Optional,,text,,,extras:identifier
+,,Creation Method,extras:creationMethod,Required,,text,,,extras:creation_method
+dcat:Dataset,dct:issued,Published Date,extras:issueDate,Required,user specified,text,,,extras:issued
+dcat:Dataset,dct:modified,Updated Date,extras:lastUpdateDate,Required,user specified,text,,,extras:modified
+,,Type of Entity,extras:uploadType,Required,"Data,Model,Service,DockerImage",text,,,extras:type_of_entity
+dcat:Dataset,owl:versionInfo,Dataset Version,extras:datasetVersion,Optional,,text,,,version
+dcat:Dataset,adms:versionNotes,Version Notes,extras:versionNotes,Optional,,text,,,extras:version_notes
+dcat:Dataset,dct:language,Language,extras:lang,Optional,default english,text,See Lists,,extras:language
+dcat:Dataset,dcat:landingPage,Landing Page about Dataset,extras: datasetPageUrl,Optional,,text,,,url
+dcat:Dataset,dct:accrualPeriodicity,Update Frequency - Cadence of updates,extras:updateFreq,Optional,,text,,,extras:frequency
+dcat:Dataset,dct:accessRights,Access Rights,extras:accessRights,Optional,,text,,,extras:access_rights
+,,Organization,owner_org,Optional,,text,,,
+,,License,extras:license / extras:otherLicense,Required,,text,,,
+dcat:Dataset,foaf:page,Documentation about datasets,extras:docsURL,Optional,,text,See Lists,,extras:documentation
+dcat:Dataset,dct:provenance,Provenance,extras:dataProvenance,Optional,,text,,,extras:provenance
+dcat:Dataset,dcat-us:purpose,Purpose,extras:purpose,Required,,text,DCAT-US v3 and higher only,,extras:purpose
+dcat:Dataset,skos:scopeNote,Usage Information,extras:usageInfo,Optional,,text,DCAT-US v3 and higher only,,extras:usage
+dcat:Dataset,dct:type,Type of data,extras:dataType,Required,,text,,,type
+dcat:Dataset,dct:spatial,Spatial Coverage,extras:spatialCov,Optional,,"list of objects, geojson or wkt",See Spatial coverage,,extras:spatial_uri
+,,Spatial Coverage Input Type,extras:spatialCovFormat,,,,,,
+dcat:Dataset,dct:temporal,Start DateTime,extras:startDateTime,Optional,,"date, time","None, one or both extras can be present",,extras:temporal_start
+dcat:Dataset,dct:temporal,End DateTime,extras:endDateTime,Optional,,"date, time","None, one or both extras can be present",,extras:temporal_end
+dcat:Dataset,dcat-us:geographicBoundingBox,Bbox of data,extras:dataBbox,Optional,"If they leave this blank, we could fill it in","list of objects, json or wkt",DCAT-US v3 and higher only,,extras:bbox
+,,Bbox Input Type,extras:dataBboxFormat,,,,,,
+dcat:Dataset,dcat-us:describedBy,Column Data Dictionary,extras:columnDataDict,Optional,Highly Recommended,list of objects,DCAT-US v3 and higher only,,extras:data_dictionary
+dcat:Dataset,dcat:temporalResolution,Resolution of Temporal Data,extras:temporalRes,Optional,,"number, text",,,extras:temporal_resolution
+dcat:Dataset,dcat:spatialResolutionInMeters,Resolution of Spatial Data (m),extras:spatialRes,Optional,,number,,,extras:spatial_resolution_in_meters
+,,Time Zone,extras:timezone,Optional,,text,,,
+"The publisher field will be the Agent Object below of Name, Email, Website",,,,,,,,,
+dcat:Dataset,dct:publisher,,,Required,,list of objects,See URIs and Publisher,,
+foaf:Agent,foaf:name,Publisher Name,extras:publisherName,Required,,text,,,extras:publisher_name
+foaf:Agent,foaf:mbox,Publisher Email,extras:publisherEmail,Required,,text,,,extras:publisher_email
+foaf:Agent,foaf:homepage,Publisher Website,extras:publisherWebsite,Optional,,text,,,extras:publisher_url
+"The creator field will be the Agent Object below of Name, Email, Website",,,,,,,,,
+dcat:Dataset,dct:creator,,,,,list of objects,See URIs,,
+foaf:Agent,foaf:name,Creator Name,extras:creatorName,Required,,text,,,extras:creator_name
+foaf:Agent,foaf:mbox,Creator Email,extras:creatorEmail,Required,,text,,,extras:creator_email
+foaf:Agent,foaf:homepage,Creator Website,extras:creatorWebsite,Optional,,text,,,extras:creator_url
+"The Point of Contact field will be the Agent Object below of Name, Email, Website",,,,,,,,,
+dcat:Dataset,dcat:contactPoint,,,Required,,list of objects,See URIs and Contact points,,
+foaf:Agent,foaf:name,POC Name,extras:pocName,Required,,text,,,extras:contact_name
+foaf:Agent,foaf:mbox,POC Email,extras:pocEmail,Required,,text,,,extras:contact_email
+foaf:Agent,foaf:homepage,POC Website,extras:pocWebsite,Optional,,text,,,extras:creator_url
+"Distribution object are the CKAN Resources, there can be unlimited amount of Resources so this is a one-to-many relationship with dataset",,,,,,,,,
+dcat:Distribution,dct:title,Resource Title,resource:name,Required,,text,,,resource:name
+dcat:Distribution,dcat:accessURL,URL to Access Data - Info on Access,resource:url,"All green cells are related, You have to fill out one of them at the minimum, >0 needs to be filled out ",Either or,text,"If downloadURL is not present, accessURL will be used as resource url",,resource:access_url
+dcat:Distribution,dcat:downloadURL,URL to Download Data - Direct Link For Downloading,resource:url,,,text,"If present, downloadURL will be used as resource url",,resource:download_url
+dcat:Distribution,dct:description,Description,resource:description,Required,,text,,,resource:description
+dcat:Distribution,dcat:mediaType,Mimetype,resource:mimetype,Required,,text,,,resource:mimetype
+dcat:Distribution,dct:format,Format,N/A,Required,,text,,,resource:format
+dcat:Distribution,dct:license,License,resource:license / resource:otherLicense,Optional,default BB4 (check that),text,See Licenses,,resource:license
+dcat:Distribution,adms:status,Status of Dataset,resource:status,Required,,text,,,resource:status
+dcat:Distribution,dcat:byteSize,Size of Dataset,resource:resSize,Optional,,number,,,resource:size
+,,Size of Dataset Type,,,units,text,,,
+dcat:Distribution,dct:issued,Issue date,resource:issueDate,Optional,default to dataset collection values,text,,,resource:issued
+dcat:Distribution,dct:modified,Updated date,resource:lastUpdateDate,Optional,,text,,,resource:modified
+dcat:Distribution,dct:rights,Access Control Rights,resource:accessControlRights,Optional,,text,,,resource:rights
+dcat:Distribution,foaf:page,Documentation URL,resource:docsUrl,Optional,,list,See Lists,,resource:documentation
+dcat:Distribution,dcat-us:describedBy,Data Dictionary of Resource,resource:resDataDict,Optional,,list of objects,DCAT-US v3 and higher only,,extras:data_dictionary
+,,Code Access,resource:codeAccessUrl,Optional,,text,DCAT-US v3 and higher only,,extras:code_url
+"Data service is if the resource is an API with endpoints. You would create one Data Service object per endpoint (Name the endpoint, provide the url with parameters, describe how to use it)",,,,,,,,,
+dcat:DataService,dct:title,Endpoint Name - API,resource:endpointName,"All green cells are related, You have to fill out one of them at the minimum, >0 needs to be filled out ",All required if endpoint is provided,text,,,access_service:title
+dcat:DataService,dcat:endpointURL,Endpoint URL,resource:url,,,list,,,access_service:endpoint_url
+dcat:DataService,dcat:endpointDescription,Endpoint Description (how to use),resource:endpointDesc,,,text,,,access_service:endpoint_description
+"We need to dicuss how to explain what the CheckSum values are, but i would assume they wouldnt be used that much, very rare that people know this",,,,,,,,,
+spdx:Checksum,spdx:checksumValue,CheckSumValue,,Optional,,text,,,resource:hash
+spdx:Checksum,spdx:algorithm,Algorithm,,Optional,,text,,,resource:hash_algorithm
+,,NDP User Who Added Data,,,,,,,extras:created_by_keycloak
+,,NDP User Created DateTime,,,,,,,extras:created_on
